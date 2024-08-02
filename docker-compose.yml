@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  web:
+    container_name: dashboard_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3107:3107"
+    restart: unless-stopped
