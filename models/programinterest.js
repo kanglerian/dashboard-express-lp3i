@@ -4,34 +4,32 @@ const {
 } = require('sequelize');
 const { v4: uuidv4 } = require('uuid');
 module.exports = (sequelize, DataTypes) => {
-  class Program extends Model {
+  class ProgramInterest extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Program.hasMany(models.ProgramInterest, {
+      ProgramInterest.belongsTo(models.Program, {
         foreignKey: 'programId',
-        as: 'interests'
+        as: 'program'
       });
     }
   }
-  Program.init({
-    uuid: {
-      type: DataTypes.UUID,
-      defaultValue: uuidv4,
+  ProgramInterest.init({
+    programId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Programs',
+        key: 'id'
+      }
     },
-    code: DataTypes.STRING,
-    title: DataTypes.STRING,
-    campus: DataTypes.STRING,
-    level: DataTypes.STRING,
-    image: DataTypes.STRING,
-    type: DataTypes.CHAR,
+    name: DataTypes.STRING,
     status: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Program',
+    modelName: 'ProgramInterest',
   });
-  return Program;
+  return ProgramInterest;
 };
