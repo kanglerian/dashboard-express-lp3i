@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   try {
     const response = await Program.findAll({
       where: {
-        status: "1"
+        status: true
       },
       include: [
         { model: ProgramInterest, as: 'interests', attributes: ['name', 'status'] }
