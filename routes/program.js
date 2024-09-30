@@ -7,6 +7,9 @@ const { Program, ProgramInterest } = require('../models')
 router.get('/', async (req, res) => {
   try {
     const response = await Program.findAll({
+      where: {
+        status: true
+      },
       include: [
         { model: ProgramInterest, as: 'interests', attributes: ['name', 'status'] }
       ],
